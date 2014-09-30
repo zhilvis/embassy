@@ -1,19 +1,12 @@
-FROM ubuntu:trusty
+FROM debian:jessie
 MAINTAINER Jeff Lindsay <progrium@gmail.com>
 
 RUN apt-get update && apt-get install -y iptables curl unzip
 
-ADD https://dl.bintray.com/mitchellh/consul/0.3.0_linux_amd64.zip /tmp/consul.zip
-RUN cd /bin && unzip /tmp/consul.zip && chmod +x /bin/consul && rm /tmp/consul.zip
-
-ADD https://dl.bintray.com/mitchellh/consul/0.3.0_web_ui.zip /tmp/webui.zip
-RUN cd /tmp && unzip /tmp/webui.zip && mv dist /ui && rm /tmp/webui.zip
-
-ADD https://github.com/progrium/ambassadord/releases/download/v0.0.1/ambassadord_0.0.1_linux_x86_64.tgz /tmp/ambassadord.tgz
-RUN cd /bin && tar -zxf /tmp/ambassadord.tgz && rm /tmp/ambassadord.tgz
-
-ADD https://github.com/progrium/docksul/releases/download/v0.1.0/docksul_0.1.0_linux_x86_64.tgz /tmp/docksul.tgz
-RUN cd /bin && tar -zxf /tmp/docksul.tgz && rm /tmp/docksul.tgz
+RUN curl -L https://dl.bintray.com/mitchellh/consul/0.4.0_linux_amd64.zip > consul.zip && unzip consul.zip -d /bin && rm consul.zip && chmod +x /bin/consul
+RUN curl -L https://dl.bintray.com/mitchellh/consul/0.4.0_web_ui.zip > ui.zip && unzip ui.zip && rm ui.zip && mv /dist /ui
+RUN curl -L https://github.com/progrium/ambassadord/releases/download/v0.0.1/ambassadord_0.0.1_linux_x86_64.tgz | tar -xz -C /bin && chmod +x /bin/ambassadord
+RUN curl -L https://github.com/progrium/registrator/raw/master/stage/registrator > /bin/registrator && chmod +x /bin/registrator
 
 ADD ./config /config/
 ADD ./start /bin/start

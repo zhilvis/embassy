@@ -67,7 +67,7 @@ start() {
 	codep \
 		"/bin/consul agent -config-dir=/config $(echo "$@")" \
 		'/bin/ambassadord' \
-		'/bin/docksul 0.0.0.0:8500'
+		'/bin/registrator consul://0.0.0.0:8500'
 }
 
 main() {
