@@ -12,11 +12,11 @@ ADD ./config /config/
 ADD ./start /bin/start
 
 ENV SERVICE_53_NAME consul-dns
-ENV SERVICE_18500_NAME consul-http
-ENV SERVICE_18400_NAME consul-rpc
-ENV SERVICE_18300_NAME consul-server
-ENV SERVICE_18301_NAME serf-lan
-ENV SERVICE_18302_NAME serf-wan
+ENV SERVICE_8500_NAME consul-http
+ENV SERVICE_8400_NAME consul-rpc
+ENV SERVICE_8300_NAME consul-server
+ENV SERVICE_8301_NAME serf-lan
+ENV SERVICE_8302_NAME serf-wan
 ENV DOCKER_HOST unix:///tmp/docker.sock
 
 EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 53/udp
